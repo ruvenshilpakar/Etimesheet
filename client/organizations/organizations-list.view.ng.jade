@@ -1,0 +1,68 @@
+.div(layout='row')
+  .form-container(layout='column' layout-align-sm='center')
+    .list-title Organization Management
+    //- p.mdl-layout-title List of users
+    span(flex='5')
+    form(name='organizationForm', novalidate='', layout-padding='')
+      button.fa.fa-plus-circle.fa-4x.newFormBtn(ng-click='toggleForm()') Add Organization
+      
+      br
+      div.formElements(ng-show='toggle')
+        div(layout='row', layout-align='space-around center')
+          md-input-container(flex='')
+            label Name
+            input(type='text', ng-model='newOrganization.name')
+          md-input-container(flex='')
+            label Address
+            input(type='text', ng-model='newOrganization.address')
+        div(layout='row', layout-align='space-around center')
+          md-input-container(flex='')
+            label Contact
+            input(type='text', ng-model='newOrganization.contact')
+
+          md-input-container(flex='')
+            label Client Email
+            input(required='', type='email', name='clientEmail', ng-model='newOrganization.email', minlength='10', maxlength='100', ng-pattern='/^.+@.+\..+$/')
+        br
+        button.fa.fa-check-circle-o.saveFormBtn(ng-click='save()')  Save
+        button.fa.fa-times-circle-o.cancelFormBtn(ng-click='cancel()')  Cancel
+      br
+      span(flex='20')
+      i.fa.fa-search
+      input#search(type='search', ng-model='search', name='search', placeholder='search')
+      i.fa.fa-times(ng-show="organizationForm.search.$dirty" ng-click="search='';" style="cursor:pointer")
+      br
+      br
+      table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.organizationTable(align='left')
+        thead
+          tr
+            th Sn.No
+            th
+              a(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Name
+                md-tooltip(md-direction='top') Sort By Name
+              span.fa.fa-sort-asc(ng-show="sortType == 'name' && !sortReverse")
+              span.fa.fa-sort-desc(ng-show="sortType == 'name' && sortReverse")
+            th Address
+            th Contact
+            th
+              a(href='#', ng-click="sortType = 'email'; sortReverse = !sortReverse") Email
+                md-tooltip(md-direction='top') Sort By Email
+              span.fa.fa-sort-asc(ng-show="sortType == 'email' && !sortReverse")
+              span.fa.fa-sort-desc(ng-show="sortType == 'email' && sortReverse")
+            th Options
+        tbody
+          tr(dir-paginate='organization in organizations | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='organizationsCount.count',  current-page='page')
+           td {{$index+1}}
+           td {{ organization.name }}
+           td {{organization.address}}
+           td {{organization.contact}}
+           td {{organization.email}}
+           td 
+            a(ng-href='/organizations/{{organization._id}}')
+              i.fa.fa-pencil-square-o.fa-2x | 
+                md-tooltip(md-direction='left') Edit
+            i.fa.fa-trash-o.fa-2x.removeBtn(ng-click='showConfirm($event,organization._id)') |
+              md-tooltip(md-direction='bottom') Remove
+          tr
+           td(colspan='6') Total number of Organization: {{organizationsCount.count}}
+      dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')

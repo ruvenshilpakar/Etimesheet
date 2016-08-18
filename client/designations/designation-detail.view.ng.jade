@@ -1,0 +1,15 @@
+.designation-detail
+  span(flex='')
+  div(layout='column')
+    p.loginText Here are the designation details
+    form.md-whiteframe-z1(name='form', ng-submit='save()', layout-padding='')
+      md-input-container
+        label Name
+        input(ng-model='designation.name', placeholder='Name')
+      md-input-container
+        label Description
+        textarea(ng-model='designation.description')
+      div(layout='row')
+        input.md-button(type='submit', value='Save')
+        md-button(ng-href='/designations') Cancel
+  span(flex='')

@@ -1,0 +1,35 @@
+.leaveRequestFormContainer.md-whiteframe-z1
+  p.card-h1 Add Leave Request
+  form.md-whiteframe-z1(ng-submit='save()', name='form', novalidate='', layout-padding='')
+      div(layout='row', layout-align='space-between center') 
+      Label Date
+      md-datepicker(ng-model='newLeaveRequest.startDate', md-placeholder='From', date-format="yyyy-MM-dd")
+      md-datepicker(ng-model='newLeaveRequest.endDate', md-placeholder='To', date-format="yyyy-MM-dd")
+      md-input-container
+        label Reason
+        input(ng-model='newLeaveRequest.reason')
+      div(layout='row')
+        md-button.submitBtns(ng-click='save()') Add
+        md-button(ng-href='/userdashboard') Cancel
+  br  
+  p Leave requests made so far: {{leaveRequestsCount.count}}
+  table#flip-scroll.md-whiteframe-z1(style='font-size:14px; margin:2px')
+    thead  
+      tr(style='background:#9373CC; color:white')
+        th Sno.
+        th Reason
+        th From
+        th To
+        th Status
+    tbody()  
+      tr(dir-paginate='leaveRequest in leaveRequests | itemsPerPage: perPage', total-items='leaveRequestsCount.count',  current-page='page')
+        td {{$index + 1}}
+        td {{leaveRequest.reason}}
+        td {{leaveRequest.startDate | date:"fullDate"}}
+        td {{leaveRequest.endDate | date:"fullDate"}}
+        td {{leaveRequest.status}}
+        td
+          .removeBtn.fa.fa-trash(ng-click='remove(leaveRequest._id)')
+            md-tooltip(md-direction='right') Remove
+  dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
+  

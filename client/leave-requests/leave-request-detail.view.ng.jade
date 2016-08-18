@@ -1,0 +1,50 @@
+.div(layout='row')
+  .form-container(layout='column' layout-align-sm='center')
+    .list-title List of Leave Requests
+    //- p.mdl-layout-title List of users
+    span(flex='5')
+    p Filter Leave requests:
+    form(name='leaveRequestForm', novalidate='', layout-padding='')
+      div(layout='row' flex='')
+        md-select(ng-model='userFilter', placeholder='Filter by employee name') 
+         md-option(value='{{user.profile.fName}}', ng-repeat='user in users') {{ user.profile.fName }} {{user.profile.lName}}
+        md-select(ng-model='statusFilter', placeholder='Filter by leave request status') 
+         md-option(value='Cancelled') Cancelled
+         md-option(value='Approved') Approved
+         md-option(value='Pending') Pending
+        md-button.fa.fa-refresh(ng-click='resetFilter()')
+          md-tooltip(md-direction='right') Reset Filter
+
+      span(flex='20')
+      //- i.fa.fa-search
+      //- input#search(type='search', ng-model='search', name='search', placeholder='search')
+      //- i.fa.fa-times(ng-show="leaveRequestForm.search.$dirty" ng-click="search='';" style="cursor:pointer")
+      br
+      br
+      p Total number of Leave Requests: {{leaveRequestsCount.count}} 
+      table.md-whiteframe-z1#flip-scroll.leaveRequestTable(align='left')
+        thead
+          tr
+            th Sn.No
+            th
+              a(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Requested By
+                md-tooltip(md-direction='top') Sort By Name
+              span.fa.fa-sort-asc(ng-show="sortType == 'name' && !sortReverse")
+              span.fa.fa-sort-desc(ng-show="sortType == 'name' && sortReverse")
+            th Requested On
+            th Reason
+            th From
+            th To
+            th Status
+        tbody
+          tr(dir-paginate='leaveRequest in leaveRequests | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='leaveRequestsCount.count',  current-page='page')
+           td {{$index+1}}
+           td {{leaveRequest.requestedBy}} 
+           td {{leaveRequest.askedDate| date:'fullDate'}}
+           td {{leaveRequest.reason }}
+           td {{leaveRequest.startDate| date:'fullDate' }}
+           td {{leaveRequest.endDate| date:'fullDate' }}
+           td {{leaveRequest.status}}
+      dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
+    p
+      md-button.md-raised(ng-href='/leave-requests') Back

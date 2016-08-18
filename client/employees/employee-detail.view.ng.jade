@@ -1,0 +1,47 @@
+.employee-detail(layout='row')
+  span(flex='')
+  div(layout='column')
+    p.loginText Here are the details of the employee
+    form.md-whiteframe-z1(name='form', ng-submit='save()', layout-padding='')
+      div.inputAreaSignup(layout='column')
+        div(layout='row', layout-align='center center')
+          i.fa.fa-user.fa-2x
+          md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+            label First Name
+            input(ng-model='fName', type='text', ng-required='true')
+          md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+            label Middle Name
+            input(ng-model='mName', type='text')
+          md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+            label Last Name
+            input(ng-model='lName', type='text', ng-required='true')
+        div(layout='row', layout-align='center center')
+          i.fa.fa-phone-square.fa-2x
+          md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+            label Mobile
+            input(ng-model='mobileNum', type='text', ng-required='true')
+          md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+            label Home
+            input(ng-model='homeNum', type='text', ng-required='true')
+        div(layout='row', layout-align='center center')  
+          i.fa.fa-home.fa-2x
+          md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+              label Address
+              input(ng-model='address', type='text', ng-required='true')
+        div(layout='row')  
+          i.fa.fa-building-o.fa-2x
+          div(layout='column' flex='')
+            label Department
+              md-select(ng-model='department', placeholder='Select Department') 
+               md-option(ng-value='')
+               md-option(ng-value='department.name', ng-repeat='department in departments') {{ department.name }}
+            label Designation
+              md-select(ng-model='designation', placeholder='Select Designation') 
+               md-option(ng-value='')
+               md-option(ng-value='designation.name', ng-repeat='designation in designations') {{designation.name }}
+            
+      div(layout='row')
+        input.md-button(type='submit', value='Save')
+        md-button(ng-click='reset()') Reset
+        md-button(ng-href='/employees') Cancel
+  span(flex='')

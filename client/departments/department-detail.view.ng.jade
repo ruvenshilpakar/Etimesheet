@@ -1,0 +1,15 @@
+.department-detail
+  span(flex='')
+  div(layout='column')
+    p.loginText Here are the department details
+    form.md-whiteframe-z1(name='form', ng-submit='save()', layout-padding='')
+      md-input-container
+        label Name
+        input(type='text', ng-model='department.name')
+      md-input-container
+        label Description
+        textarea(ng-model='department.description')
+      div(layout='row')
+        input.md-button(type='submit', value='Save')
+        md-button(ng-href='/departments') Cancel
+  span(flex='')

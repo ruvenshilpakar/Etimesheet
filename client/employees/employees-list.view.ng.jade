@@ -1,0 +1,53 @@
+.div(layout='row') 
+  .form-container(layout='column' layout-align-sm='center')
+    .list-title User Management
+    //- p.mdl-layout-title List of users
+    span(flex='5')
+    form(name='userForm', novalidate='', layout-padding='')
+      
+      span(flex='20')
+      i.fa.fa-search
+      input#search(type='search', ng-model='search', name='search', placeholder='search')
+      i.fa.fa-times(ng-show="userForm.search.$dirty" ng-click="search='';" style="cursor:pointer")
+      br
+      br
+    table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.userTable(align='left' style='transition:none')
+      thead
+        tr
+          th(style='transition:none') Sn.No
+          th
+            a(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Name
+              md-tooltip(md-direction='top') Sort By Name
+            span.fa.fa-sort-asc(ng-show="sortType == 'name' && !sortReverse")
+            span.fa.fa-sort-desc(ng-show="sortType == 'name' && sortReverse")
+          th Contact
+          th
+            a(href='#', ng-click="sortType = 'email'; sortReverse = !sortReverse") Primary Email
+              md-tooltip(md-direction='top') Sort By Email
+            span.fa.fa-sort-asc(ng-show="sortType == 'email' && !sortReverse")
+            span.fa.fa-sort-desc(ng-show="sortType == 'email' && sortReverse")
+          th Department
+          th Designation
+          th Options
+      tbody
+        tr(dir-paginate='user in users | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='usersCount.count',  current-page='page', style='transition:none')
+          td.mdl-data-table__cell--non-numeric(style='transition:none') {{$index+1}}
+          td {{user.profile.fName}} {{user.profile.mName}} {{user.profile.lName}}
+          td {{user.profile.contact[0].mobileNum}}
+          td {{user.emails[0].address}}
+          td {{user.profile.department}}
+          td {{user.profile.designation}}
+          td 
+            a(ng-href='/employees/{{user._id}}')
+              i.fa.fa-pencil-square-o.fa-2x | 
+                md-tooltip(md-direction='left') Edit
+            i.fa.fa-trash-o.fa-2x.removeBtn(ng-click='showConfirm($event,user._id)') |
+              md-tooltip(md-direction='bottom') Remove
+            a(ng-href='/reset-password-admin/{{user._id}}')
+              i.fa.fa-random.fa-2x |
+                md-tooltip(md-direction='bottom') Reset password
+            button.activateBtn(ng-click='activate(user._id)' , ng-show='user.profile.isActive!=1') Activate
+            button.deactivateBtn(ng-click='deactivate(user._id)', ng-show='user.profile.isActive==1') Deactivate
+        tr
+          td(colspan='7') Total number of Users: {{usersCount.count}}
+    dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')

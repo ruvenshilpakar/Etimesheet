@@ -1,0 +1,21 @@
+{
+  "name": "etimesheet",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    ".meteor/local/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-lite": "~1.0.6"
+  },
+  "overrides": {
+    "angular": {
+      "main": []
+    }
+  }
+}

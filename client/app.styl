@@ -1,0 +1,133 @@
+.main-wrapper{
+  width:100%
+}
+
+.login-wrapper {
+  min-height: 100vh
+  width: 100%
+  height: 100%
+  padding: 32px
+  background-color: #53707f
+  background-image: -webkit-radial-gradient(rgba(33,33,33,0), rgba(33,33,33,0.4))
+  background-image: radial-gradient(rgba(33,33,33,0), rgba(33,33,33,0.4))
+  overflow-y: auto
+  -webkit-box-align: center
+  -o-box-align: center
+  -ms-flex-align: center
+  -webkit-align-items: center
+  align-items: center
+  -ms-flex-line-pack: center
+  -webkit-align-content: center
+  align-content: center
+  -webkit-box-pack: center
+  -o-box-pack: center
+  -ms-flex-pack: center
+  -webkit-justify-content: center
+  justify-content: center
+  margin-top: -121px
+  -webkit-transition: all 0.3s
+  transition: all 0.3s
+}
+
+@media only screen and (max-width: 710px) {
+  .login-wrapper {
+    padding: 48px 32px
+  }
+}
+
+
+table a
+  color:#231D1F
+  text-decoration:none
+
+.list-title
+  display: block;
+  position: relative;
+  font-family: "Roboto","Helvetica","Arial",sans-serif
+  font-size: 30px
+  font-weight: bold
+  line-height: 2
+  letter-spacing: .02em
+  font-weight: 400
+  box-sizing: border-box
+  text-align:center
+  background:black
+  color:white
+
+.mdl-data-table th
+  text-align:center
+
+#search
+  width:50%
+  padding:5px
+
+.designationTable,.userTable,.departmentTable,.organizationTable,.leaveRequestTable,.projectTable,.logsTable,.projectTable
+  width:100%
+  min-height:100px
+
+.organization-detail, .department-detail , .designation-detail
+  width:50%
+  margin:auto
+
+.form-container
+  margin:1% auto
+  background:white
+  padding:10px
+  width:90%
+  box-shadow:0px 0px 7px 0px black
+
+.form-container form
+  padding:8px 0
+
+.formElements
+  width:55%
+
+#flip-scroll table tr td 
+  text-align: center  
+
+@media only screen and (max-width: 800px) {
+  
+  #flip-scroll .cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+  #flip-scroll * html .cf { zoom: 1; }
+  #flip-scroll *:first-child+html .cf { zoom: 1; }
+  
+  #flip-scroll table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+ 
+  #flip-scroll th,
+  #flip-scroll td { margin: 0; vertical-align: top; }
+  #flip-scroll th { text-align: left; }
+  
+  #flip-scroll table { display: block; position: relative; width: 100%; }
+  #flip-scroll thead { display: block; float: left; }
+  #flip-scroll tbody { display: block; width: auto; position: relative; overflow-x: auto; white-space: nowrap; }
+  #flip-scroll thead tr { display: block; }
+  #flip-scroll th { display: block; text-align: right; }
+  #flip-scroll tbody tr { display: inline-block; vertical-align: top; }
+  #flip-scroll td { display: block; min-height: 1.25em; text-align: left; }
+ 
+ 
+  /* sort out borders */
+ 
+  #flip-scroll th { border-bottom: 0; border-left: 0; }
+  #flip-scroll td { border-left: 0; border-right: 0; border-bottom: 0; }
+  #flip-scroll tbody tr { border-left: 1px solid #babcbf; }
+  #flip-scroll th:last-child,
+  #flip-scroll td:last-child { border-bottom: 1px solid #babcbf; }
+}
+
+ul
+  &.pagination
+    list-style none
+    text-align center
+    li
+      display inline
+      font-size: 14px
+      cursor pointer
+      padding 5px
+      margin 5px
+      text-decoration: none
+      color:black
+
+.clear
+  clear both
+  float none

@@ -1,0 +1,68 @@
+.div(layout='row')
+  .form-container(layout='column' layout-align-sm='center')
+    .list-title Projects Management
+    //- p.mdl-layout-title List of users
+    span(flex='5')
+    form(name='form', id='projectForm', novalidate='', layout-padding='')
+      button.fa.fa-plus-circle.fa-4x.newFormBtn(ng-click='toggleForm()') Add Project
+      
+      br
+      div.formElements(ng-show='switch')
+        div(layout='row')
+          md-input-container
+            label Project Name
+            input(ng-model='newProject.name')
+          md-input-container
+            label Description
+            textarea(ng-model='newProject.description')
+        div(layout='row', layout-align='start center') 
+          label Start
+          md-datepicker(ng-model='newProject.startDate', md-placeholder='From')
+          label End
+          md-datepicker(ng-model='newProject.endDate', md-placeholder='To')
+
+        div(layout='column', layout-align='start start') 
+          ul Members
+            li(ng-repeat='user in users', style="list-style-type: none;")
+              input(type='checkbox', checklist-model='member', checklist-value='user.emails[0].address', ng-disabled="shouldBeDisabled(user.deleted)", ng-click="toggle(user._id, member)", ng-checked="exists(user._id, member)" )
+              | {{user.profile.fName}} || {{user.emails[0].address}}
+        br
+        label(layout='row') Parent
+        md-select(ng-model='newProject.parent', placeholder='Select Parent Project if any')
+         md-option(ng-value='')
+         md-option(ng-value='project._id', ng-repeat='project in projects') {{ project.name }}
+        br
+        button.fa.fa-check-circle-o.saveFormBtn(ng-click='save()')  Save
+        button.fa.fa-times-circle-o.cancelFormBtn(ng-click='cancel()')  Cancel
+      br
+      span(flex='20')
+      i.fa.fa-search
+      input#search(type='search', ng-model='search', name='search', placeholder='search')
+      i.fa.fa-times(ng-show="form.search.$dirty" ng-click="search='';" style="cursor:pointer")
+      br
+      br
+      table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.projectTable(align='left')
+        thead
+          tr
+            th.mdl-data-table__cell--non-numeric Sn.No
+            th
+              a.mdl-data-table__cell--non-numeric(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Name
+                md-tooltip(md-direction='top') Sort By Name
+              span.fa.fa-sort-asc(ng-show="sortType == 'name' && !sortReverse")
+              span.fa.fa-sort-desc(ng-show="sortType == 'name' && sortReverse")
+            th Description
+            th Options
+        tbody
+          tr.mdl-data-table__cell--non-numeric(dir-paginate='project in projects | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='projectsCount.count',  current-page='page')
+           td.mdl-data-table__cell--non-numeric {{$index+1}}
+           td {{project.name}}
+           td {{project.description}}
+           td 
+            a(ng-href='/projects/{{project._id}}')
+              i.fa.fa-pencil-square-o.fa-2x | 
+                md-tooltip(md-direction='left') Edit
+            i.fa.fa-trash-o.fa-2x.removeBtn(ng-click='showConfirm($event,project._id)')
+              md-tooltip(md-direction='bottom') Remove
+          tr
+           td(colspan='5') Total number of projects: {{projectsCount.count}}
+    dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')        

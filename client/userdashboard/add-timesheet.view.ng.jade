@@ -1,0 +1,59 @@
+.md-whiteframe-z1.timesheetFormContainer
+  div(layout='column')
+    p.card-h1 Add Timesheet
+    form.md-whiteframe-z1( name='form', novalidate='', layout-padding='')
+      table#flip-scroll
+        thead
+          tr
+            th
+              a(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Project
+              span(ng-show="sortType == 'name' && !sortReverse")
+              span(ng-show="sortType == 'name' && sortReverse")
+            th 
+              a(href='#', ng-click="sortType = 'Timetaken'; sortReverse = !sortReverse") Time Taken
+              span(ng-show="sortType == 'Timetaken' && !sortReverse")
+              span(ng-show="sortType == 'Timetaken' && sortReverse")
+            th
+              a(href='#', ng-click="sortType = 'Description'; sortReverse = !sortReverse") Description
+              span(ng-show="sortType == 'Description' && !sortReverse")
+              span(ng-show="sortType == 'Description' && sortReverse")
+            
+                
+          tr
+            td
+              md-select(ng-model='newDailyLog.name', placeholder='Project Title')
+               md-option(ng-value='project.name', ng-repeat='project in projects',ng-click="set(project.name)") {{ project.name }}
+            td
+              md-input-container
+                input(ng-model='newDailyLog.Timetaken',placeholder='hrs',type='number')
+                label hrs
+            td
+              md-input-container
+                textarea(ng-model='newDailyLog.Description', placeholder='')
+                label Task
+            td
+              button.fa.fa-plus-circle.fa-2x.addRowBtn(ng-click='addRow()')
+                md-tooltip(md-direction='right') Add New Row
+          tr(ng-repeat="timesheet in timesheets")
+            td
+              md-select(ng-model='timesheet.projectName', placeholder='Project Title')
+                md-option(ng-value='project.name', ng-repeat='project in projects',ng-click="set(project.name)") {{ project.name }}
+             
+            td
+              md-input-container
+                input(ng-model='timesheet.Timetaken', placeholder='',type='number')
+                label hrs
+      
+              
+            td
+              md-input-container
+                textarea(ng-model='timesheet.description', placeholder='')
+                label Task
+              
+            td
+              button.fa.fa-minus-circle.fa-2x.removeRowBtn(ng-click='timesheets.splice($index, 1)')
+                md-tooltip(md-direction='right') Remove Row
+
+    div(layout='row')
+          md-button.submitBtns(ng-click='save()') Submit
+          md-button(ng-href='/userdashboard') Cancel

@@ -1,0 +1,38 @@
+.div(layout='row')
+  .form-container(layout='column' layout-align-sm='center')
+    .list-title Logs Management
+    //- p.mdl-layout-title List of users
+    span(flex='5')
+    div(layout='column')
+      p Filter Daily Logs:
+    div(layout='row' flex='')
+      md-select(ng-model='userFilter', placeholder='Filter by Employee') 
+       md-option(value='{{user.profile.fName}}', ng-repeat='user in users') {{ user.profile.fName }} {{user.profile.lName}}
+      md-select(ng-model='projectFilter', placeholder='Filter by Project') 
+       md-option(value='{{project.name}}', ng-repeat='project in projects') {{ project.name}}
+      md-button.fa.fa-refresh(ng-click='resetFilter()')
+        md-tooltip(md-direction='right') Reset Filter
+    table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.logsTable
+      tr
+        td(colspan='6') Total number of Logs: {{dailyLogsCount.count}}          
+      tr
+        th Project Title
+        th Time Taken
+        th Task
+        th Added By
+        th Created Date
+
+      tr(dir-paginate='dailyLog in dailyLogs | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='dailyLogsCount.count',  current-page='page')
+        td {{dailyLog.projectName}}
+        td {{dailyLog.Timetaken}} hrs
+        td {{dailyLog.description}}
+        td {{dailyLog.createdBy}}
+        td {{dailyLog.createdDate | date:'fullDate'}}
+        td 
+          i.fa.fa-trash-o.fa-2x.removeBtn(ng-click='showConfirm($event,dailyLog._id)')
+            md-tooltip(md-direction='bottom') Remove
+
+
+    dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
+
+    

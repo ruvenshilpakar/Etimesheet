@@ -1,0 +1,65 @@
+.login-wrapper
+  .signupForm.md-whiteframe-24dp(layout='column')
+    div.loginText E-timesheet Sign Up
+    div.inputAreaSignup(layout='column')
+      .md-warn(ng-show='error')
+          small {{ error }}
+      div(layout='row', layout-align='center center')
+        i.fa.fa-user.fa-2x
+        md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+          label First Name
+          input(ng-model='newEmployee.fName', type='text', ng-required='true')
+        md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+          label Middle Name
+          input(ng-model='newEmployee.mName', type='text')
+        md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+          label Last Name
+          input(ng-model='newEmployee.lName', type='text', ng-required='true')
+      div(layout='row', layout-align='center center')
+        i.fa.fa-phone-square.fa-2x
+        md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+          label Mobile
+          input(ng-model='newEmployee.contact[0].mobileNum', type='number', ng-required='true')
+        md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+          label Home
+          input(ng-model='newEmployee.contact[0].homeNum', type='number', ng-required='true')
+      div(layout='row', layout-align='center center')  
+        i.fa.fa-home.fa-2x
+        md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+            label Address
+            input(ng-model='newEmployee.address', type='text', ng-required='true')
+      div(layout='row')  
+        i.fa.fa-envelope.fa-2x
+        div(layout='column' flex='')
+          md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+              label Primary Email
+              input(ng-model='email', type='email', ng-required='true')
+          md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+              label Secondary Email
+              input(ng-model='newEmployee.secondaryEmail', type='email', ng-required='true')          
+      div(layout='row', layout-align='center center')
+        i.fa.fa-key.fa-2x
+        md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+          label Enter Password
+          input(ng-model='password', type='password', ng-required='true')
+        md-input-container.md-block.md-input-has-placeholder(md-no-float='', flex='')
+          label Re-enter Password
+          input(ng-model='passwordConfirm', type='password', ng-required='true')
+      span(layout='row', layout-align='space-between center')
+        a.reg-terms-text(href='/login') Registered Already?
+      button.signup-btn(ng-click='register()')
+        i.fa.fa-paper-plane
+        | Join
+      .or-text-wrapper
+        p.or-text or Join using
+      div(layout='row', layout-align='space-between center')
+        ul.social-buttons(ng-controller="LoginCtrl")
+          li.social-icon.social-fb
+            button.mdl-js-button.mdl-js-ripple-effect(ng-click="loginOauth('facebook')") 
+              i.fa.fa-facebook.fb-icon | Facebook
+          li.social-icon.social-gp
+            button.mdl-js-button.mdl-js-ripple-effect(ng-click="loginOauth('google')") 
+              i.fa.fa-google | Google
+          li.social-icon.social-tw
+            button.mdl-js-button.mdl-js-ripple-effect(ng-click="loginOauth('twitter')") 
+              i.fa.fa-twitter | Twitter

@@ -1,0 +1,36 @@
+.project-detail(layout='row')
+  span(flex='')
+  div(layout='column')
+    p.loginText Here are the Project details
+    form(name='projectForm', id='projectForm', novalidate='', layout-padding='')
+      i.fa.fa-plus-circle.fa-4x(ng-click='')
+         md-tooltip(md-direction='bottom') Add
+      br
+      div.formElements
+        md-input-container
+          label Project Name
+          input(ng-model='project.name')
+        md-input-container
+          label Description
+          textarea(ng-model='project.description')
+        div(layout='row', layout-align='start center') 
+          label Start Date
+          md-datepicker(ng-model='project.startDate', md-placeholder='From')
+          label End Date
+          md-datepicker(ng-model='project.endDate', md-placeholder='To')
+
+        div(layout='column', layout-align='start start') 
+          ul Members
+            li(ng-repeat='user in users', style="list-style-type: none;")
+              input(type='checkbox', checklist-model='mem', checklist-value='user.emails[0].address', ng-disabled="shouldBeDisabled(user.deleted)", ng-click="toggle(user._id, member)", ng-checked="exists(user._id, member)" )
+              | {{user.profile.fName}} || {{user.emails[0].address}}
+        br
+        label(layout='row') Parent
+        md-select(ng-model='project.parent', placeholder='Select Parent Project if any')
+         md-option(ng-value='')
+         md-option(ng-value='project._id', ng-repeat='project in projects') {{ project.name }}
+        br
+      div(layout='row')
+        md-button(ng-href='/projects') Save
+        md-button(ng-href='/projects') Cancel
+  span(flex='')

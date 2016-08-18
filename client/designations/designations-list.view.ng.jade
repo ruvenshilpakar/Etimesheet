@@ -1,0 +1,53 @@
+.div(layout='row')
+  .form-container(layout='column' layout-align-sm='center')
+    .list-title Designations Management
+    //- p.mdl-layout-title List of users
+    span(flex='5')
+    form(name='designationForm', novalidate='', layout-padding='')
+      button.fa.fa-plus-circle.fa-4x.newFormBtn(ng-click='toggleForm()') Add Designation
+      
+      br
+      div.formElements(ng-show='toggle')
+        md-input-container(flex='')
+          label Name
+          input(type='text', ng-model='newDesignation.name')
+        md-input-container(flex='')
+          label Description
+          textarea(ng-model='newDesignation.description')
+        br
+        button.fa.fa-check-circle-o.saveFormBtn(ng-click='save()')  Save
+        button.fa.fa-times-circle-o.cancelFormBtn(ng-click='cancel()')  Cancel
+      br
+      span(flex='20')
+      i.fa.fa-search
+      input#search(type='search', ng-model='search', name='search', placeholder='search')
+      i.fa.fa-times(ng-show="designationForm.search.$dirty" ng-click="search='';" style="cursor:pointer")
+      br
+      br
+    table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp.designationTable(align='left')
+      thead
+        tr
+         td(colspan='5') Total number of Designations: {{designationsCount.count}}
+        tr
+          th Sn.No
+          th
+            a(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Name
+              md-tooltip(md-direction='top') Sort By Name
+            span.fa.fa-sort-asc(ng-show="sortType == 'name' && !sortReverse")
+            span.fa.fa-sort-desc(ng-show="sortType == 'name' && sortReverse")
+          th Description
+          th Options
+      tbody
+        tr(dir-paginate='designation in designations | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='designationsCount.count',  current-page='page')
+         td {{$index+1}}
+         td {{designation.name}}
+         td {{designation.description}}
+         td 
+          a(ng-href='/designations/{{designation._id}}')
+            i.fa.fa-pencil-square-o.fa-2x | 
+              md-tooltip(md-direction='left') Edit
+          i.fa.fa-trash-o.fa-2x.removeBtn(ng-click='showConfirm($event,designation._id)')
+            md-tooltip(md-direction='bottom') Remove
+        
+    span(layout='row') 
+      dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)') 

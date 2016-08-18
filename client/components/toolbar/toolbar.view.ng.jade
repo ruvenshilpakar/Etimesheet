@@ -1,0 +1,40 @@
+div
+  //- | {{userType}}
+  div.adminToolbar(ng-if="userType == 'admin'" layout='column')
+    span Etimesheet 
+      i.fa.fa-hourglass
+      i.fa.fa-calendar-o.fa-2x
+      
+    hr
+    .profileDiv(layout='row')
+      img.profileImage(alt='image', src='https://en.gravatar.com/userimage/97712942/32e63fd942d398ddb027b099592d6128.jpg?size=200')
+      p {{ $root.currentUser.emails[0].address }}
+      a.fa.fa-sign-out.fa-2x.logoutBtn(ng-href='/logout')
+        md-tooltip(md-direction='right') Logout
+    nav(layout='column')
+      p.menu-headers User Management
+      a.menu-item(href='../../employees') Manage Employees
+      a.menu-item(href='../../organizations') Manage Organization
+      p.menu-headers List Data Management
+      a.menu-item(href='../../departments') Manage Departments
+      a.menu-item(href='../../designations') Manage Designation
+      a.menu-item(href='../../leave-requests') View Leave Requests
+      a.menu-item(href='../../daily-logs') View Daily Log
+      a.menu-item(href='../../projects') Add Projects
+
+  md-toolbar(ng-show="userType && userType !='admin'" style='position:absolute')
+    .md-toolbar-tools
+      div.logo(layout='column' layout-align='center center')
+        md-button(ng-href='/userdashboard' layout='row' aria-label='Home')
+          i.fa.fa-hourglass
+          i.fa.fa-calendar-o.fa-2x
+        span E-timesheet
+
+      span(flex='')
+      div.userbar(layout='row', layout-align='center center')
+        p {{ $root.currentUser.emails[0].address }}
+        img#demo-menu-lower-right.profileIcon(alt='image', src='client-placeholder.png')
+        ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='demo-menu-lower-right')
+          li.mdl-menu__item Edit Profile
+          li.mdl-menu__item
+            a(ng-href='/logout') Logout

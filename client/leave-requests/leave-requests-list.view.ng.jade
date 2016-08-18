@@ -1,0 +1,43 @@
+.div(layout='row')
+  .form-container(layout='column' layout-align-sm='center')
+    .list-title List of Leave Requests
+    span(flex='5')
+    p
+      md-button.md-raised(ng-href='/leave-requests-details') View Previous Leave Requests
+    form(name='leaveRequestForm', novalidate='', layout-padding='')
+      span(flex='20')
+      i.fa.fa-search
+      input#search(type='search', ng-model='search', name='search', placeholder='search')
+      i.fa.fa-times(ng-show="leaveRequestForm.search.$dirty" ng-click="search='';" style="cursor:pointer")
+      br
+      br
+      p List of pending leave requests: {{leaveRequestsCount.count}}
+      table.md-whiteframe-z1#flip-scroll.leaveRequestTable(align='left')
+        thead
+          tr
+            th Sn.No
+            th
+              a(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Requested By
+                md-tooltip(md-direction='top') Sort By Name
+              span.fa.fa-sort-asc(ng-show="sortType == 'name' && !sortReverse")
+              span.fa.fa-sort-desc(ng-show="sortType == 'name' && sortReverse")
+            th Requested On
+            th Reason
+            th From
+            th To
+            th Operation
+        tbody
+          tr(dir-paginate='leaveRequest in leaveRequests | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='leaveRequestsCount.count',  current-page='page')
+           td {{$index+1}}
+           td {{leaveRequest.requestedBy}} 
+           td {{leaveRequest.askedDate| date:'fullDate'}}
+           td {{leaveRequest.reason }}
+           td {{leaveRequest.startDate| date:'fullDate' }}
+           td {{leaveRequest.endDate| date:'fullDate' }}
+           td 
+            i.fa.fa-check-circle-o.fa-2x.approveBtn(ng-click='approve(leaveRequest._id)') |
+              //- md-tooltip(md-direction='bottom') Approve
+            i.fa.fa-times-circle-o.fa-2x.discardBtn(ng-click='discard(leaveRequest._id)')
+              //- md-tooltip(md-direction='bottom') Cancel
+      .clear
+      dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
